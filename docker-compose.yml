@@ -1,0 +1,59 @@
+version: '3'
+
+services:
+    membresia-controller:
+        build: ./Controllers/membresia-controller
+        ports:
+            - "5000:5000"
+        volumes:
+            - ./Controllers/membresia-controller:/membresia-controller-code
+        environment:
+            FLASK_ENV: development
+    suscripcion-controller:
+        build: ./Controllers/suscripcion-controller
+        ports:
+            - "5001:5000"
+        volumes:
+            - ./Controllers/suscripcion-controller:/suscripcion-controller-code
+        environment:
+            FLASK_ENV: development
+    usuario-controller:
+        build: ./Controllers/usuario-controller
+        ports:
+            - "5002:5000"
+        volumes:
+            - ./Controllers/usuario-controller:/usuario-controller-code
+        environment:
+            FLASK_ENV: development
+    membresia-model:
+        build: ./Models/membresia
+        ports:
+            - "5010:5000"
+        volumes:
+            - ./Models/membresia:/membresia-model-code
+        environment:
+            FLASK_ENV: development
+    suscripcion-model:
+        build: ./Models/suscripcion
+        ports:
+            - "5011:5000"
+        volumes:
+            - ./Models/suscripcion:/suscripcion-model-code
+        environment:
+            FLASK_ENV: development
+    usuario-model:
+        build: ./Models/usuario
+        ports:
+            - "5012:5000"
+        volumes:
+            - ./Models/usuario:/suscripcion-model-code
+        environment:
+            FLASK_ENV: development
+    gym-db:
+        image: postgres:12-alpine
+        volumes:
+            - ./gym-db:/var/lib/postgresql/data/
+        environment:
+            - POSTGRES_USER=admin
+            - POSTGRES_PASSWORD=esime2021
+            - POSTGRES_DB=gym_database
